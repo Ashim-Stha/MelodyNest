@@ -20,10 +20,14 @@ const mockSongsService = {
     //   provide: SongsService,
     //   useClass: SongsService,
     // },
+
+    //  //mock
     // {
     //   provide: SongsService,
     //   useValue: mockSongsService,
     // },
+
+    // //custom provider
     SongsService,
     {
       provide: 'CONNECTION',
