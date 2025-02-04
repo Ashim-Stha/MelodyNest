@@ -5,3 +5,22 @@ nest new projname
 npm install class-validator class-transformer
 
 nest g mi common/middleware/logger --no-spec --no-flat  
+
+npm i typeorm pg @nestjs/typeorm
+
+npm i @nestjs/config
+
+TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_DATABASE'),
+        entities: [],
+        synchronize: true,
+      }),
+      inject: [ConfigService],
+    }),
