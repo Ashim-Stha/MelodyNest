@@ -11,7 +11,7 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-    "title" : "lasting lover",
+    "title" : "lasting lover2",
     "artists" : ["sigla","john"] ,
     "releasedDate" : "2022-09-29",
     "duration" : "02:34",
@@ -20,6 +20,15 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:3000/songs/1
+Content-Type: application/json
+
+{
+    "title" : "lasting lover2",
+    "artists" : ["sigla","john"] ,
+    "releasedDate" : "2022-09-29",
+    "duration" : "02:34",
+    "lyrics":"minnna minnnaa"
+}
 
 ###
-DELETE http://localhost:3000/songs/1
+DELETE http://localhost:3000/songs/3
