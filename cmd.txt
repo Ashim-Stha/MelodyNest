@@ -1,3 +1,7 @@
+npm i -g @nestjs/cli
+
+nest new projname
+
 npm install class-validator class-transformer
 
-nest g mi common/middleware/logger --no-spec --no-flat 
+nest g mi common/middleware/logger --no-spec --no-flat  

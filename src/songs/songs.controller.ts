@@ -24,7 +24,9 @@ export class SongsController {
       throw new HttpException(
         'server error',
         HttpStatus.INTERNAL_SERVER_ERROR,
-        { cause: e },
+        {
+          cause: e,
+        },
       );
     }
   }
@@ -37,7 +39,7 @@ export class SongsController {
     )
     id: number,
   ) {
-    return `based on id ${typeof id}`;
+    return `fetch song on the based on id ${typeof id}`;
   }
 
   @Put(':id')

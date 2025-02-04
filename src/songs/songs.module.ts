@@ -4,7 +4,10 @@ import { SongsService } from './songs.service';
 
 const mockSongsService = {
   findAll() {
-    return [{ id: 1, title: 'Lasting lover' }];
+    return [{ id: 1, title: 'Lasting lover', artists: ['luffy'] }];
+  },
+  create(song) {
+    return [{ id: 1, title: 'Lasting lover' }, song];
   },
 };
 
@@ -18,7 +21,7 @@ const mockSongsService = {
     // },
     {
       provide: SongsService,
-      useClass: mockSongsService,
+      useValue: mockSongsService,
     },
   ],
 })
