@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SongsController } from './songs.controller';
 import { SongsService } from './songs.service';
+import { connection } from 'src/common/constants/connection';
 
 const mockSongsService = {
   findAll() {
@@ -19,9 +20,14 @@ const mockSongsService = {
     //   provide: SongsService,
     //   useClass: SongsService,
     // },
+    // {
+    //   provide: SongsService,
+    //   useValue: mockSongsService,
+    // },
+    SongsService,
     {
-      provide: SongsService,
-      useValue: mockSongsService,
+      provide: 'CONNECTION',
+      useValue: connection,
     },
   ],
 })
