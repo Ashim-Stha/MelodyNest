@@ -11,7 +11,7 @@ import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
 import { DevConfigService } from './common/providers/DevConfigService';
 
 const devConfig = { port: 3000 };
-const proConfig = { port: 400 };
+const proConfig = { port: 4000 };
 
 @Module({
   imports: [SongsModule],
