@@ -2,7 +2,7 @@ import { Artist } from 'src/artists/artist.entity';
 import {
   Column,
   Entity,
-  JoinColumn,
+  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -28,6 +28,6 @@ export class Song {
   lyrics: string;
 
   @ManyToMany(() => Artist, (artist) => artist.songs, { cascade: true })
-  @JoinColumn({ name: 'songs_artists' })
+  @JoinTable({ name: 'songs_artists' })
   artists: Artist[];
 }
