@@ -1,7 +1,8 @@
 GET http://localhost:3000
 
 ###
-GET http://localhost:3000/songs
+GET http://localhost:3000/songs/?page=1&limit=2
+# GET http://localhost:3000/songs/
 
 ###
 GET http://localhost:3000/songs/1
@@ -11,7 +12,7 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-    "title" : "lasting lover2",
+    "title" : "lasting lover7",
     "artists" : ["sigla","john"] ,
     "releasedDate" : "2022-09-29",
     "duration" : "02:34",

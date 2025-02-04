@@ -4,6 +4,11 @@ import { Song } from './song.entity';
 import { CreateSongDTO } from './dto/create-song-dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateSongDTO } from './dto/update-song-dto';
+import {
+  IPaginationOptions,
+  Pagination,
+  paginate,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable({
   // scope: Scope.TRANSIENT, //create a new dedicated instance of SongsController on every incoming req - doesnot cache
@@ -37,5 +42,9 @@ export class SongsService {
 
   update(id: number, recordToUpdate: UpdateSongDTO): Promise<UpdateResult> {
     return this.songsRepository.update(id, recordToUpdate);
+  }
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<Song>> {
+    return paginate<Song>(this.songsRepository, options);
   }
 }

@@ -10,3 +10,5 @@ npm i typeorm pg @nestjs/typeorm
 
 npm i @nestjs/config dotenv
 
+npm i nestjs-typeorm-paginate
+
