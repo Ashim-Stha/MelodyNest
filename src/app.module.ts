@@ -15,6 +15,7 @@ import { DevConfigService } from './common/providers/DevConfigService';
 import { Song } from './songs/song.entity';
 import { Artist } from './artists/artist.entity';
 import { User } from './users/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
@@ -25,7 +26,7 @@ const proConfig = { port: 4000 };
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, AuthModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get<string>('DB_HOST'),
