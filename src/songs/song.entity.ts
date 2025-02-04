@@ -17,7 +17,7 @@ export class Song {
 
   //   @Column('varchar', { array: true })
   //   artists: string[];
-
+  //
   @Column('date')
   releasedDate: Date;
 
