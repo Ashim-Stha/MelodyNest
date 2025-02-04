@@ -16,3 +16,8 @@ npm i bcryptjs
 
 npm i -D @types/bcryptjs
 
+npm i passport-jwt @nestjs/jwt
+
+npm i -D @types/passport-jwt
+
+
