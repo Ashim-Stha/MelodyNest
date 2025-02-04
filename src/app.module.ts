@@ -12,6 +12,7 @@ import { AppService } from './app.service';
 import { SongsModule } from './songs/songs.module';
 import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
 import { DevConfigService } from './common/providers/DevConfigService';
+import { Song } from './songs/song.entity';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
@@ -30,7 +31,7 @@ const proConfig = { port: 4000 };
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [],
+        entities: [Song],
         synchronize: true,
       }),
       inject: [ConfigService],
