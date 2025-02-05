@@ -20,4 +20,6 @@ npm i passport-jwt @nestjs/jwt @nestjs/passport
 
 npm i -D @types/passport-jwt
 
+npm i speakeasy
 
+npm i -D @types/speakeasy

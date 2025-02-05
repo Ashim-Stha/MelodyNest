@@ -13,7 +13,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWFuY
 Content-Type: application/json
 
 {
-    "title" : "save your tears",
+    "title" : "positions",
     "artists" : [1],
     "releasedDate" : "2023-05-29",
     "duration" : "02:34",
@@ -61,4 +61,23 @@ Content-Type: application/json
 ### profile
 
 GET http://localhost:3000/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWFuYUBnbWFpbC5jb20iLCJ1c2VySWQiOjIsImlhdCI6MTczODczMDgyMCwiZXhwIjoxNzM4ODE3MjIwfQ.nNdg23XW3ZpNWPvUzUqaP3-S6wfwt6Us0Z5JTsthEVM
+
+### enable 2FA
+
+GET http://localhost:3000/auth/enable-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWFuYUBnbWFpbC5jb20iLCJ1c2VySWQiOjIsImFydGlzdElkIjoxLCJpYXQiOjE3Mzg3NDk2NzksImV4cCI6MTczODgzNjA3OX0.BZmSlukGTCyVc4Pg1B14RbJQ6S07pKaBKdl_e9h83t4
+
+### validate 2FA token
+POST  http://localhost:3000/auth/validate-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWFuYUBnbWFpbC5jb20iLCJ1c2VySWQiOjIsImlhdCI6MTczODczMDgyMCwiZXhwIjoxNzM4ODE3MjIwfQ.nNdg23XW3ZpNWPvUzUqaP3-S6wfwt6Us0Z5JTsthEVM
+Content-Type: application/json
+
+{
+    "token":"579722"
+}
+
+### disable 2FA
+
+GET http://localhost:3000/auth/disable-2fa
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWFuYUBnbWFpbC5jb20iLCJ1c2VySWQiOjIsImlhdCI6MTczODczMDgyMCwiZXhwIjoxNzM4ODE3MjIwfQ.nNdg23XW3ZpNWPvUzUqaP3-S6wfwt6Us0Z5JTsthEVM
