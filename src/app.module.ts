@@ -17,31 +17,35 @@ import { Artist } from './artists/artist.entity';
 import { User } from './users/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ArtistsModule } from './artists/artists.module';
+import { dataSourceOptions } from 'db/data-source';
+import { UserModule } from './users/users.module';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    // ConfigModule.forRoot({
+    //   isGlobal: true,
+    // }),
+    // AuthModule,
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   useFactory: (configService: ConfigService) => ({
+    //     type: 'postgres',
+    //     host: configService.get<string>('DB_HOST'),
+    //     port: configService.get<number>('DB_PORT'),
+    //     username: configService.get<string>('DB_USERNAME'),
+    //     password: configService.get<string>('DB_PASSWORD'),
+    //     database: configService.get<string>('DB_NAME'),
+    //     entities: [Song, Artist, User],
+    //     synchronize: true,
+    //   }),
+    //   inject: [ConfigService],
+    // }),
+    TypeOrmModule.forRoot(dataSourceOptions),
     AuthModule,
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_NAME'),
-        entities: [Song, Artist, User],
-        synchronize: true,
-      }),
-      inject: [ConfigService],
-    }),
-
+    UserModule,
     SongsModule,
     ArtistsModule,
   ],
