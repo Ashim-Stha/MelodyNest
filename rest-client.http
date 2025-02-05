@@ -41,9 +41,9 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "firstName": "Ariana",
-    "lastName": "Grande",
-    "email": "ariana@gmail.com",
+    "firstName": "Monkey D.",
+    "lastName": "Luffy",
+    "email": "luffy@gmail.com",
     "password": "123456"
 }
 
@@ -81,3 +81,8 @@ Content-Type: application/json
 
 GET http://localhost:3000/auth/disable-2fa
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWFuYUBnbWFpbC5jb20iLCJ1c2VySWQiOjIsImlhdCI6MTczODczMDgyMCwiZXhwIjoxNzM4ODE3MjIwfQ.nNdg23XW3ZpNWPvUzUqaP3-S6wfwt6Us0Z5JTsthEVM
+
+
+### Access profile with apikey
+GET http://localhost:3000/auth/profile
+Authorization: Bearer 5c29eff5-ccfe-4d28-9639-8aa3361d441e

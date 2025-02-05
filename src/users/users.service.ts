@@ -70,4 +70,8 @@ export class UserService {
       },
     );
   }
+
+  async findByApiKey(apiKey: string): Promise<User> {
+    return this.userRepository.findOneBy({ apiKey });
+  }
 }

@@ -23,3 +23,5 @@ npm i -D @types/passport-jwt
 npm i speakeasy
 
 npm i -D @types/speakeasy
+
+npm i passport-http-bearer
