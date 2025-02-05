@@ -92,10 +92,9 @@ Authorization: Bearer 5c29eff5-ccfe-4d28-9639-8aa3361d441e
 
 POST http://localhost:3000/playlists
 Content-Type: application/json
+
 {
     "name":"myplaylist",
-    "songs":[
-        1
-    ],
+    "songs":[1],
     "user":1
 }
