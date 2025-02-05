@@ -29,7 +29,9 @@ export class User {
   @Column()
   apiKey: string;
 
-  //A user can create many playlists
+  /**
+   * A user can create many playLists
+   */
   @OneToMany(() => Playlist, (playList) => playList.user)
   playLists: Playlist[];
 }

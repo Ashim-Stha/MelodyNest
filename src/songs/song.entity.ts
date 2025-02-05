@@ -17,9 +17,9 @@ export class Song {
   @Column()
   title: string;
 
-  //   @Column('varchar', { array: true })
-  //   artists: string[];
-  //
+  // @Column('varchar', { array: true })
+  // artists: string[];
+
   @Column('date')
   releasedDate: Date;
 
@@ -33,7 +33,9 @@ export class Song {
   @JoinTable({ name: 'songs_artists' })
   artists: Artist[];
 
-  //Many songs can belong to playlist for each unique user
+  /**
+   * Many songs can belong to playlist for each unique user
+   */
   @ManyToOne(() => Playlist, (playList) => playList.songs)
   playList: Playlist;
 }

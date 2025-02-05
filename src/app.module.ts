@@ -21,6 +21,8 @@ import { ArtistsModule } from './artists/artists.module';
 import { UserModule } from './users/users.module';
 import { Playlist } from './playlists/playlist.entity';
 import { PlaylistModule } from './playlists/playlist.module';
+import { dataSourceOptions } from 'db/data-source';
+import { SeedModule } from './seed/seed.module';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
@@ -31,26 +33,27 @@ const proConfig = { port: 4000 };
       isGlobal: true,
     }),
     AuthModule,
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_NAME'),
-        entities: [Song, Artist, User, Playlist], //
-        synchronize: true,
-      }),
-      inject: [ConfigService],
-    }),
-    // TypeOrmModule.forRoot(dataSourceOptions),
-    // AuthModule,
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   useFactory: (configService: ConfigService) => ({
+    //     type: 'postgres',
+    //     host: configService.get<string>('DB_HOST'),
+    //     port: configService.get<number>('DB_PORT'),
+    //     username: configService.get<string>('DB_USERNAME'),
+    //     password: configService.get<string>('DB_PASSWORD'),
+    //     database: configService.get<string>('DB_NAME'),
+    //     entities: [Song, Artist, User, Playlist], //
+    //     synchronize: true,
+    //   }),
+    //   inject: [ConfigService],
+    // }),
+    TypeOrmModule.forRoot(dataSourceOptions),
+
     UserModule,
     PlaylistModule,
     SongsModule,
     ArtistsModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [
