@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { Strategy } from 'passport-http-bearer';
 
 @Injectable()
-export class ApiKeyStrategy extends PassportStrategy(Strategy) {
+export class ApiKeyStrategy extends PassportStrategy(Strategy, 'bearer') {
   constructor(private authService: AuthService) {
     super();
   }
@@ -13,8 +13,7 @@ export class ApiKeyStrategy extends PassportStrategy(Strategy) {
     const user = await this.authService.validateUserByApiKey(apiKey);
     if (!user) {
       throw new UnauthorizedException();
-    } else {
-      return user;
     }
+    return user;
   }
 }

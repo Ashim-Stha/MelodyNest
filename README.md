@@ -1,185 +1,209 @@
-# MelodyNest: NestJS Project
+# MelodyNest
 
-This is a full-featured NestJS project that includes a simple song management API. The project demonstrates the use of various NestJS features such as modules, controllers, services, middleware, DTOs, and validation.
+MelodyNest is a music management application built with NestJS. It allows users to manage songs, artists, and user authentication with JWT and API key strategies. The application also supports two-factor authentication (2FA).
 
-## Table of Contents
+## Features
 
-- [MelodyNest: NestJS Project](#melodynest-nestjs-project)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-  - [Running the App](#running-the-app)
-  - [API Endpoints](#api-endpoints)
-    - [Example Requests](#example-requests)
-      - [Get All Songs](#get-all-songs)
-      - [Get Song by ID](#get-song-by-id)
-      - [Create a New Song](#create-a-new-song)
-      - [Update a Song](#update-a-song)
-      - [Delete a Song](#delete-a-song)
-  - [Testing](#testing)
-  - [Project Structure](#project-structure)
-  - [Technologies Used](#technologies-used)
-  - [Contributing](#contributing)
-  - [License](#license)
+- User authentication with JWT
+- API key authentication
+- Two-factor authentication (2FA)
+- CRUD operations for songs and artists
+- Pagination and sorting for songs
+- Relationship management between songs and artists
+
+## Prerequisites
+
+- Node.js
+- PostgreSQL
 
 ## Installation
 
-To install the dependencies, run:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/MelodyNest.git
+   cd MelodyNest
+   ```
 
-```bash
-npm install
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Running the App
+3. Create a `.env` file in the root directory and add the following environment variables:
+   ```
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_USERNAME=your_db_username
+   DB_PASSWORD=your_db_password
+   DB_NAME=your_db_name
+   JWT_SECRET=your_jwt_secret
+   ```
 
-To start the application, use one of the following commands:
+4. Run the database migrations:
+   ```bash
+   npm run typeorm migration:run
+   ```
 
-```bash
-# development
-npm run start
+## Running the Application
 
-# watch mode
-npm run start:dev
+1. Start the development server:
+   ```bash
+   npm run start:dev
+   ```
 
-# production mode
-npm run start:prod
-```
-
-The application will be available at `http://localhost:3000`.
+2. The application will be available at `http://localhost:3000`.
 
 ## API Endpoints
 
-The following API endpoints are available:
+### Authentication
 
-- `GET /songs`: Retrieve all songs
-- `GET /songs/:id`: Retrieve a song by ID
-- `POST /songs`: Create a new song
-- `PUT /songs/:id`: Update a song by ID
-- `DELETE /songs/:id`: Delete a song by ID
+- **Signup**
+  ```http
+  POST /auth/signup
+  Content-Type: application/json
 
-### Example Requests
+  {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "password": "password123"
+  }
+  ```
 
-#### Get All Songs
+- **Login**
+  ```http
+  POST /auth/login
+  Content-Type: application/json
 
-```http
-GET /songs HTTP/1.1
-Host: localhost:3000
-```
+  {
+      "email": "john.doe@example.com",
+      "password": "password123"
+  }
+  ```
 
-#### Get Song by ID
+- **Enable 2FA**
+  ```http
+  GET /auth/enable-2fa
+  Authorization: Bearer <JWT_TOKEN>
+  ```
 
-```http
-GET /songs/1 HTTP/1.1
-Host: localhost:3000
-```
+- **Validate 2FA Token**
+  ```http
+  POST /auth/validate-2fa
+  Authorization: Bearer <JWT_TOKEN>
+  Content-Type: application/json
 
-#### Create a New Song
+  {
+      "token": "authenticator_token"
+  }
+  ```
 
-```http
-POST /songs HTTP/1.1
-Host: localhost:3000
-Content-Type: application/json
+- **Disable 2FA**
+  ```http
+  GET /auth/disable-2fa
+  Authorization: Bearer <JWT_TOKEN>
+  ```
 
-{
-  "title": "New Song",
-  "artist": "Artist Name",
-  "album": "Album Name",
-  "year": 2021
-}
-```
+- **Profile**
+  ```http
+  GET /auth/profile
+  Authorization: Bearer <JWT_TOKEN>
+  ```
 
-#### Update a Song
+- **Profile with API Key**
+  ```http
+  GET /auth/profile
+  Authorization: Bearer <API_KEY>
+  ```
 
-```http
-PUT /songs/1 HTTP/1.1
-Host: localhost:3000
-Content-Type: application/json
+### Songs
 
-{
-  "title": "Updated Song Title",
-  "artist": "Updated Artist Name",
-  "album": "Updated Album Name",
-  "year": 2022
-}
-```
+- **Create Song**
+  ```http
+  POST /songs
+  Authorization: Bearer <JWT_TOKEN>
+  Content-Type: application/json
 
-#### Delete a Song
+  {
+      "title": "Song Title",
+      "artists": [1, 2],
+      "releasedDate": "2023-05-29",
+      "duration": "02:34",
+      "lyrics": "Song lyrics"
+  }
+  ```
 
-```http
-DELETE /songs/1 HTTP/1.1
-Host: localhost:3000
-```
+- **Get All Songs**
+  ```http
+  GET /songs/?page=1&limit=10
+  ```
 
-## Testing
+- **Get Song by ID**
+  ```http
+  GET /songs/1
+  ```
 
-To run the tests, use one of the following commands:
+- **Update Song**
+  ```http
+  PUT /songs/1
+  Content-Type: application/json
 
-```bash
-# unit tests
-npm run test
+  {
+      "title": "Updated Song Title",
+      "artists": [1, 2],
+      "releasedDate": "2023-05-29",
+      "duration": "02:34",
+      "lyrics": "Updated song lyrics"
+  }
+  ```
 
-# e2e tests
-npm run test:e2e
+- **Delete Song**
+  ```http
+  DELETE /songs/1
+  ```
 
-# test coverage
-npm run test:cov
-```
+## Database Schema
 
-## Project Structure
+### User
 
-The project structure is as follows:
+- `id`: Primary key
+- `firstName`: String
+- `lastName`: String
+- `email`: String
+- `password`: String
 
-```
-.eslintrc.js
-.gitignore
-.prettierrc
-cmd.txt
-nest-cli.json
-package.json
-README.md
-rest-client.http
-src/
-  app.controller.spec.ts
-  app.controller.ts
-  app.module.ts
-  app.service.ts
-  common/
-    middleware/
-      logger/
-        logger.middleware.ts
-  main.ts
-  songs/
-    dto/
-      create-song-dto.ts
-    songs.controller.spec.ts
-    songs.controller.ts
-    songs.module.ts
-    songs.service.spec.ts
-    songs.service.ts
-test/
-  app.e2e-spec.ts
-  jest-e2e.json
-tsconfig.build.json
-tsconfig.json
-```
+### Artist
 
-## Technologies Used
+- `id`: Primary key
+- `user`: One-to-one relationship with `User`
+- `songs`: Many-to-many relationship with `Song`
 
-- [NestJS](https://nestjs.com/): A progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
-- [TypeScript](https://www.typescriptlang.org/): A typed superset of JavaScript that compiles to plain JavaScript.
-- [Jest](https://jestjs.io/): A delightful JavaScript Testing Framework with a focus on simplicity.
-- [ESLint](https://eslint.org/): A tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
-- [Prettier](https://prettier.io/): An opinionated code formatter.
+### Song
 
-## Contributing
+- `id`: Primary key
+- `title`: String
+- `releasedDate`: Date
+- `duration`: Time
+- `lyrics`: Text
+- `artists`: Many-to-many relationship with `Artist`
 
-Contributions are welcome! Please follow these steps:
+## Middleware
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature-name`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add some feature'`).
-5. Push to the branch (`git push origin feature/your-feature-name`).
-6. Open a pull request.
+- **LoggerMiddleware**: Logs incoming requests.
+
+## Providers
+
+- **DevConfigService**: Provides development configuration settings.
+
+## Guards
+
+- **JwtAuthGuard**: Protects routes using JWT authentication.
+- **ArtistJwtGuard**: Protects routes for artist-specific actions.
+
+## Strategies
+
+- **JwtStrategy**: Validates JWT tokens.
+- **ApiKeyStrategy**: Validates API keys.
 
 ## License
 

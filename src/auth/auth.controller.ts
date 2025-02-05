@@ -11,7 +11,6 @@ import { User } from 'src/users/user.entity';
 import { UserService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { LoginDTO } from './dto/login.dto';
-import { request } from 'http';
 import { JwtAuthGuard } from './jwt-guard';
 import { Enable2FAType } from './types';
 import { ValidateTokenDTO } from './dto/validate-token.dto';
