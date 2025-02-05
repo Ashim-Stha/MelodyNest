@@ -1,8 +1,9 @@
 # compiled output
 /dist
 /node_modules
-playlist.entity.ts
+
 .env
+seeds
 
 # Logs
 logs

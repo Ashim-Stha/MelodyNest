@@ -26,8 +26,8 @@ PUT http://localhost:3000/songs/1
 Content-Type: application/json
 
 {
-    "title" : "lasting lover2",
-    "artists" : ["sigla","john"] ,
+    "title" : "lasting lover",
+    "artists" : [1],
     "releasedDate" : "2022-09-29",
     "duration" : "02:34",
     "lyrics":"minnna minnnaa"
@@ -86,3 +86,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWFuY
 ### Access profile with apikey
 GET http://localhost:3000/auth/profile
 Authorization: Bearer 5c29eff5-ccfe-4d28-9639-8aa3361d441e
+
+
+### create playlist
+
+POST http://localhost:3000/playlists
+Content-Type: application/json
+{
+    "name":"myplaylist",
+    "songs":[
+        1
+    ],
+    "user":1
+}
