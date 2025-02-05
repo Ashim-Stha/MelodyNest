@@ -9,15 +9,17 @@ GET http://localhost:3000/songs/1
 
 ###
 POST http://localhost:3000/songs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWFuYUBnbWFpbC5jb20iLCJ1c2VySWQiOjIsImFydGlzdElkIjoxLCJpYXQiOjE3Mzg3MzExNTMsImV4cCI6MTczODgxNzU1M30.rPO6XnZqMlWdQ3nY8n9wkkQNP5KzbMIh9PTjvjmfzMM
 Content-Type: application/json
 
 {
-    "title" : "one piece",
-    "artists" : [1,2] ,
+    "title" : "save your tears",
+    "artists" : [1],
     "releasedDate" : "2023-05-29",
     "duration" : "02:34",
     "lyrics":"minnna minnnaa"
 }
+
 
 ###
 PUT http://localhost:3000/songs/1
@@ -39,9 +41,9 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "firstName": "john",
-    "lastName": "doe",
-    "email": "john@gmail.com",
+    "firstName": "Ariana",
+    "lastName": "Grande",
+    "email": "ariana@gmail.com",
     "password": "123456"
 }
 
@@ -51,12 +53,12 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "john@gmail.com",
+    "email": "ariana@gmail.com",
     "password": "123456"
 }
 
 
-### auth
+### profile
 
 GET http://localhost:3000/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZ21haWwuY29tIiwic3ViIjoxLCJpYXQiOjE3Mzg3MjUyNDQsImV4cCI6MTczODgxMTY0NH0.ss3dA-8DiHnurTvcs3mcgOqtQ8IqnBcIJQQQI8d5yuQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWFuYUBnbWFpbC5jb20iLCJ1c2VySWQiOjIsImlhdCI6MTczODczMDgyMCwiZXhwIjoxNzM4ODE3MjIwfQ.nNdg23XW3ZpNWPvUzUqaP3-S6wfwt6Us0Z5JTsthEVM

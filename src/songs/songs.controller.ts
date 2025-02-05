@@ -13,6 +13,8 @@ import {
   Scope,
   Query,
   DefaultValuePipe,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongDTO } from './dto/create-song-dto';
@@ -21,6 +23,7 @@ import { Song } from './song.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { UpdateSongDTO } from './dto/update-song-dto';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { ArtistJwtGuard } from 'src/auth/aritists-jwt-guard';
 
 @Controller({ path: 'songs', scope: Scope.REQUEST })
 export class SongsController {
@@ -33,6 +36,17 @@ export class SongsController {
       `This is connection string ${this.connection.CONNECTION_STRING}`,
     );
   }
+
+  @Post()
+  @UseGuards(ArtistJwtGuard)
+  create(
+    @Body() createSongDTO: CreateSongDTO,
+    @Request() request,
+  ): Promise<Song> {
+    console.log(request.user);
+    return this.songsService.create(createSongDTO);
+  }
+
   @Get()
   // findAll(): Promise<Song[]> {
   //   try {
@@ -80,10 +94,5 @@ export class SongsController {
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
     return this.songsService.remove(id);
-  }
-
-  @Post()
-  create(@Body() createSongDTO: CreateSongDTO): Promise<Song> {
-    return this.songsService.create(createSongDTO);
   }
 }

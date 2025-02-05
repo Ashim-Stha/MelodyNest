@@ -10,13 +10,13 @@ import { ArtistsModule } from 'src/artists/artists.module';
 @Module({
   imports: [
     UserModule,
-    ArtistsModule,
     JwtModule.register({
       secret: authConstants.secret,
       signOptions: {
         expiresIn: '1d',
       },
     }),
+    ArtistsModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
