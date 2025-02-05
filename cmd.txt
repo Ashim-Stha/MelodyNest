@@ -25,3 +25,7 @@ npm i speakeasy
 npm i -D @types/speakeasy
 
 npm i passport-http-bearer
+
+npm run migration:generate -- db/migrations/add-user-phone
+
+npm run migration:run
