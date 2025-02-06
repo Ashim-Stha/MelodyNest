@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  mongoDB:
+    image: mongo:latest
+    environment:
+      - MONGODB_DATABASE="spotify"
+    ports:
+      - 27017:27017
