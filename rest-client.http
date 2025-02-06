@@ -98,3 +98,7 @@ Content-Type: application/json
     "songs":[1],
     "user":1
 }
+
+
+### test env
+GET http://localhost:3000/auth/test

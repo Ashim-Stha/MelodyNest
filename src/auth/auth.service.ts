@@ -9,6 +9,7 @@ import * as speakeasy from 'speakeasy';
 import { ValidateTokenDTO } from './dto/validate-token.dto';
 import { UpdateResult } from 'typeorm';
 import { User } from 'src/users/user.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -16,6 +17,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
     private artistService: ArtistsService,
+    private configService: ConfigService,
   ) {}
   async login(
     loginDTO: LoginDTO,
@@ -95,5 +97,9 @@ export class AuthService {
 
   async validateUserByApiKey(apiKey: string): Promise<User> {
     return this.userService.findByApiKey(apiKey);
+  }
+
+  getEnvVariable() {
+    return this.configService.get<number>('port');
   }
 }

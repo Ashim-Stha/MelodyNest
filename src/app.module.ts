@@ -23,6 +23,7 @@ import { Playlist } from './playlists/playlist.entity';
 import { PlaylistModule } from './playlists/playlist.module';
 import { dataSourceOptions } from 'db/data-source';
 import { SeedModule } from './seed/seed.module';
+import configuration from './config/configuration';
 
 const devConfig = { port: 3000 };
 const proConfig = { port: 4000 };
@@ -30,9 +31,10 @@ const proConfig = { port: 4000 };
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: ['.env.production', '.env.development'],
       isGlobal: true,
+      load: [configuration],
     }),
-    AuthModule,
     // TypeOrmModule.forRootAsync({
     //   imports: [ConfigModule],
     //   useFactory: (configService: ConfigService) => ({
@@ -48,7 +50,7 @@ const proConfig = { port: 4000 };
     //   inject: [ConfigService],
     // }),
     TypeOrmModule.forRoot(dataSourceOptions),
-
+    AuthModule,
     UserModule,
     PlaylistModule,
     SongsModule,
