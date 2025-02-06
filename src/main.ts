@@ -19,6 +19,18 @@ async function bootstrap() {
     .setTitle('Spotify')
     .setDescription('Spotify API documentation')
     .setVersion('1.0')
+    .addBearerAuth(
+      //Enable Bearer Auth here
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth', //we will use this Bearer Auth with JWT-auth name on the controller function
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

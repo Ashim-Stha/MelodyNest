@@ -37,6 +37,11 @@ export class AuthController {
   }
 
   @Post('login')
+  @ApiOperation({ summary: 'Login User' })
+  @ApiResponse({
+    status: 200,
+    description: 'It will give you accesstoken in response',
+  })
   login(@Body() loginDTO: LoginDTO) {
     return this.authService.login(loginDTO);
   }
