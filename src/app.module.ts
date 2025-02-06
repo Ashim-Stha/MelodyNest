@@ -21,7 +21,7 @@ import { ArtistsModule } from './artists/artists.module';
 import { UserModule } from './users/users.module';
 import { Playlist } from './playlists/playlist.entity';
 import { PlaylistModule } from './playlists/playlist.module';
-import { dataSourceOptions } from 'db/data-source';
+import { typeOrmAsyncConfig } from 'db/data-source';
 import { SeedModule } from './seed/seed.module';
 import configuration from './config/configuration';
 
@@ -49,7 +49,7 @@ const proConfig = { port: 4000 };
     //   }),
     //   inject: [ConfigService],
     // }),
-    TypeOrmModule.forRoot(dataSourceOptions),
+    TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     AuthModule,
     UserModule,
     PlaylistModule,
