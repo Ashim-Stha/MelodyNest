@@ -3,8 +3,17 @@ POST  http://localhost:3000/songs
 Content-Type: application/json
 
 {
-    "title" : "lasting lover",
+    "title" : "hello",
     "releasedDate" : "2022-09-29",
     "duration" : "02:34",
     "lyrics":"minnna minnnaa"
 }
+
+### get all songs
+GET http://localhost:3000/songs
+
+### get by id
+GET http://localhost:3000/songs/67a4eb662a7837a37b6f041f
+
+### delete by id
+DELETE http://localhost:3000/songs/67a4eb662a7837a37b6f041f

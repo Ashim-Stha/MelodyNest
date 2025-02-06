@@ -13,4 +13,16 @@ export class SongsService {
     const song = await this.songModel.create(createSongDTO);
     return song;
   }
+
+  async find(): Promise<Song[]> {
+    return this.songModel.find();
+  }
+
+  async findById(id: string): Promise<Song> {
+    return this.songModel.findById(id);
+  }
+
+  async delete(id: string) {
+    return this.songModel.deleteOne({ _id: id });
+  }
 }
