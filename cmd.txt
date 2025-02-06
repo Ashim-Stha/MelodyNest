@@ -31,3 +31,5 @@ npm run migration:generate -- db/migrations/add-user-phone
 npm run migration:run
 
 npm i @faker-js/faker
+
+npm i -D run-script-webpack-plugin
