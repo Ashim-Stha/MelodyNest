@@ -13,8 +13,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe()); //validation
 
   // enable for seeding
-  // const seedService = app.get(SeedService);
-  // await seedService.seed();
+  const seedService = app.get(SeedService);
+  await seedService.seed();
   const config = new DocumentBuilder()
     .setTitle('Spotify')
     .setDescription('Spotify API documentation')

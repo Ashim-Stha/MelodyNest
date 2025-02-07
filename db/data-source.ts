@@ -9,17 +9,8 @@ import { Song } from 'src/songs/song.entity';
 import { User } from 'src/users/user.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
-export const dataSourceOptions: DataSourceOptions = {
-  type: 'postgres',
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT),
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  entities: [User, Playlist, Artist, Song], //1
-  synchronize: false, // 2
-  migrations: ['dist/db/migrations/*.js'], // 3
-};
+//LOAD Environment Variables
+require('dotenv').config();
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
@@ -34,11 +25,26 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       username: configService.get<string>('username'),
       database: configService.get<string>('dbName'),
       password: configService.get<string>('password'),
-      entities: ['dist/**/*.entity.js'],
+      entities: [User, Playlist, Artist, Song],
       synchronize: false,
       migrations: ['dist/db/migrations/*.js'],
     };
   },
+};
+// console.log(process.env.NODE_ENV);
+// console.log(process.env.DB_HOST); // these variables are undefined
+// console.log(process.env.PASSWORD);
+
+export const dataSourceOptions: DataSourceOptions = {
+  type: 'postgres',
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT),
+  username: process.env.DB_USERNAME,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  entities: ['dist/**/*.entity.js'], //1
+  synchronize: false, // 2
+  migrations: ['dist/db/migrations/*.js'], // 3
 };
 
 const dataSource = new DataSource(dataSourceOptions); //4
