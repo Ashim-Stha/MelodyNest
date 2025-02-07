@@ -1,15 +1,17 @@
+
 # MelodyNest
 
-MelodyNest is a music management application built with NestJS. It allows users to manage songs, artists, and user authentication with JWT and API key strategies. The application also supports two-factor authentication (2FA).
+MelodyNest is a music management application built with NestJS. It allows users to manage songs, artists, playlists, and user authentication with JWT and API key strategies. The application also supports two-factor authentication (2FA).
 
 ## Features
 
 - User authentication with JWT
 - API key authentication
 - Two-factor authentication (2FA)
-- CRUD operations for songs and artists
+- CRUD operations for songs, artists, and playlists
 - Pagination and sorting for songs
-- Relationship management between songs and artists
+- Relationship management between songs, artists, and playlists
+- Environment configuration and validation
 
 ## Prerequisites
 
@@ -162,6 +164,20 @@ MelodyNest is a music management application built with NestJS. It allows users 
   DELETE /songs/1
   ```
 
+### Playlists
+
+- **Create Playlist**
+  ```http
+  POST /playlists
+  Content-Type: application/json
+
+  {
+      "name": "My Playlist",
+      "songs": [1],
+      "user": 1
+  }
+  ```
+
 ## Database Schema
 
 ### User
@@ -171,6 +187,7 @@ MelodyNest is a music management application built with NestJS. It allows users 
 - `lastName`: String
 - `email`: String
 - `password`: String
+- `apiKey`: String
 
 ### Artist
 
@@ -186,6 +203,14 @@ MelodyNest is a music management application built with NestJS. It allows users 
 - `duration`: Time
 - `lyrics`: Text
 - `artists`: Many-to-many relationship with `Artist`
+- `playList`: Many-to-one relationship with `Playlist`
+
+### Playlist
+
+- `id`: Primary key
+- `name`: String
+- `user`: Many-to-one relationship with `User`
+- `songs`: One-to-many relationship with `Song`
 
 ## Middleware
 

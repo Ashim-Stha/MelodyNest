@@ -1,55 +1,61 @@
 import {
-  MiddlewareConsumer,
+  // MiddlewareConsumer,
   Module,
-  NestModule,
-  RequestMethod,
+  // NestModule,
+  // RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
+// import { DataSource } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SongsModule } from './songs/songs.module';
-import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
-import { DevConfigService } from './common/providers/DevConfigService';
-import { Song } from './songs/song.entity';
-import { Artist } from './artists/artist.entity';
-import { User } from './users/user.entity';
+// import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
+// import { DevConfigService } from './common/providers/DevConfigService';
+// import { Song } from './songs/song.entity';
+// import { Artist } from './artists/artist.entity';
+// import { User } from './users/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ArtistsModule } from './artists/artists.module';
 import { UserModule } from './users/users.module';
-import { Playlist } from './playlists/playlist.entity';
+// import { Playlist } from './playlists/playlist.entity';
 import { PlaylistModule } from './playlists/playlist.module';
 import { typeOrmAsyncConfig } from 'db/data-source';
 import { SeedModule } from './seed/seed.module';
 import configuration from './config/configuration';
 import { validate } from 'env.validation';
 
-const devConfig = { port: 3000 };
-const proConfig = { port: 4000 };
+// const devConfig = { port: 3000 };
+// const proConfig = { port: 4000 };
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.production', '.env.development'],
+      envFilePath: [
+        // '.env.production', '.env.development'
+        `${process.cwd()}/.env.${process.env.NODE_ENV}`,
+      ],
       isGlobal: true,
       load: [configuration],
       validate: validate,
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_NAME'),
-        entities: [Song, Artist, User, Playlist],
-        synchronize: true,
-      }),
-      inject: [ConfigService],
-    }),
+    TypeOrmModule.forRootAsync(
+      typeOrmAsyncConfig,
+      // {
+      // imports: [ConfigModule],
+      // useFactory: (configService: ConfigService) => ({
+      //   type: 'postgres',
+      //   host: configService.get<string>('DB_HOST'),
+      //   port: configService.get<number>('DB_PORT'),
+      //   username: configService.get<string>('DB_USERNAME'),
+      //   password: configService.get<string>('DB_PASSWORD'),
+      //   database: configService.get<string>('DB_NAME'),
+      //   entities: [Song, Artist, User, Playlist],
+      //   synchronize: true,
+      // }),
+      // inject: [ConfigService],
+      //}
+    ),
     AuthModule,
     UserModule,
     PlaylistModule,
@@ -60,28 +66,29 @@ const proConfig = { port: 4000 };
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: DevConfigService,
-      useClass: DevConfigService,
-    },
-    {
-      provide: 'CONFIG',
-      useFactory: () => {
-        return process.env.NODE_ENV === 'development' ? devConfig : proConfig;
-      },
-    },
+    // {
+    //   provide: DevConfigService,
+    //   useClass: DevConfigService,
+    // },
+    // {
+    //   provide: 'CONFIG',
+    //   useFactory: () => {
+    //     return process.env.NODE_ENV === 'development' ? devConfig : proConfig;
+    //   },
+    // },
   ],
 })
-export class AppModule implements NestModule {
-  constructor(dataSource: DataSource) {
-    console.log('dbName', dataSource.driver.database);
-  }
-  configure(consumer: MiddlewareConsumer) {
-    // consumer.apply(LoggerMiddleware).forRoutes('songs'); //option 1
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes({ path: 'songs', method: RequestMethod.POST }); //option 2
-  }
+export class AppModule {}
+// export class AppModule implements NestModule {
+//   constructor(dataSource: DataSource) {
+//     console.log('dbName', dataSource.driver.database);
+//   }
+//   configure(consumer: MiddlewareConsumer) {
+//     // consumer.apply(LoggerMiddleware).forRoutes('songs'); //option 1
+//     consumer
+//       .apply(LoggerMiddleware)
+//       .forRoutes({ path: 'songs', method: RequestMethod.POST }); //option 2
+//   }
 
-  // consumer.apply(LoggerMiddleware).forRoutes(SongsController); //option 3
-}
+//   // consumer.apply(LoggerMiddleware).forRoutes(SongsController); //option 3
+// }
