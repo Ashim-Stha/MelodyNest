@@ -3,7 +3,7 @@ POST  http://localhost:3000/songs
 Content-Type: application/json
 
 {
-    "title" : "hello",
+    "title" : "save",
     "releasedDate" : "2022-09-29",
     "duration" : "02:34",
     "lyrics":"minnna minnnaa"
@@ -17,3 +17,13 @@ GET http://localhost:3000/songs/67a4eb662a7837a37b6f041f
 
 ### delete by id
 DELETE http://localhost:3000/songs/67a4eb662a7837a37b6f041f
+
+
+### create album
+POST http://localhost:3000/albums
+Content-Type: application/json
+
+{
+    "title":"Dance",
+    "songs":["67a57d632f9a4d2af0a0da1e","67a57d6b2f9a4d2af0a0da20"]
+}
