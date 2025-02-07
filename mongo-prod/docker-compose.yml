@@ -1,9 +1,14 @@
 version: '3'
 
 services:
-  mongoDB:
+  mongoDB-spotify:
     image: mongo:latest
     environment:
-      - MONGODB_DATABASE="spotify"
+      - MONGO_INITDB_DATABASE="spotify"
     ports:
       - 27017:27017
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
