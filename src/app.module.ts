@@ -35,6 +35,7 @@ import { join } from 'path';
         path: join(process.cwd(), 'src/graphql.ts'),
         outputAs: 'class',
       },
+      // installSubscriptionHandlers: true,
       context: ({ req }) => ({ req }),
     }),
     SongsModule,

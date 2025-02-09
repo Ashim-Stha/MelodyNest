@@ -20,6 +20,10 @@ type Profile{
     userId:String!
 }
 
+# type Subscription{
+#     songCreated:Song!
+# }
+
 input SignupInput{
     firstName:String!
     lastName:String!
