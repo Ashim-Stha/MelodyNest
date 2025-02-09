@@ -24,7 +24,7 @@ import { join } from 'path';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'root',
+      password: '#Awseem23845',
       entities: [Song, Artist, User, Playlist],
       synchronize: true,
     }),

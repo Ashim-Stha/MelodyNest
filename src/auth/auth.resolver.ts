@@ -4,9 +4,11 @@ import { UsersService } from 'src/users/users.service';
 import {
   LoginInput,
   LoginResponse,
+  Profile,
   SignupInput,
   SignupResponse,
 } from 'src/graphql';
+import { resolve } from 'path';
 
 @Resolver()
 export class AuthResolver {
@@ -28,5 +30,15 @@ export class AuthResolver {
     @Args('loginInput') loginInput: LoginInput,
   ): Promise<LoginResponse> {
     return this.authService.login(loginInput);
+  }
+
+  @Query('profile')
+  getProfile(): Promise<Profile> {
+    return new Promise((resolve) => {
+      return resolve({
+        userId: '1',
+        email: 'luffy@gmail.com',
+      });
+    });
   }
 }

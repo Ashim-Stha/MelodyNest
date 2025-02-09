@@ -30,10 +30,17 @@ export class User {
 
 export abstract class IQuery {
     abstract login(loginInput: LoginInput): LoginResponse | Promise<LoginResponse>;
+
+    abstract profile(): Profile | Promise<Profile>;
 }
 
 export abstract class IMutation {
     abstract signup(signupInput: SignupInput): SignupResponse | Promise<SignupResponse>;
+}
+
+export class Profile {
+    email: string;
+    userId: string;
 }
 
 export class SignupResponse {
