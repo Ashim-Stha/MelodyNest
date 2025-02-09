@@ -3,3 +3,9 @@ mutation {
     email
   }
 }
+
+  {
+      login(loginInput:{email:"luffy@gmail.com", password:"123456"}){
+          accessToken
+      }
+  }

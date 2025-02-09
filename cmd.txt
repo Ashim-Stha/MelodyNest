@@ -33,3 +33,5 @@ npm run migration:run
 npm i @faker-js/faker
 
 npm i -D run-script-webpack-plugin
+
+npx ts-node generate-typings
