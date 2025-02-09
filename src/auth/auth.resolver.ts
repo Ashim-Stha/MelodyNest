@@ -9,6 +9,8 @@ import {
   SignupResponse,
 } from 'src/graphql';
 import { resolve } from 'path';
+import { UseGuards } from '@nestjs/common';
+import { GraphQLAuthGuard } from './gql-auth-guard';
 
 @Resolver()
 export class AuthResolver {
@@ -33,12 +35,15 @@ export class AuthResolver {
   }
 
   @Query('profile')
-  getProfile(): Promise<Profile> {
-    return new Promise((resolve) => {
-      return resolve({
-        userId: '1',
-        email: 'luffy@gmail.com',
-      });
-    });
+  @UseGuards(GraphQLAuthGuard)
+  getProfile(parent, args, contextValue, info): Promise<Profile> {
+    console.log(parent, '.', args, '.', contextValue, '.', info);
+    // return new Promise((resolve) => {
+    //   return resolve({
+    //     userId: '1',
+    //     email: 'luffy@gmail.com',
+    //   });
+    // });
+    return contextValue.req.user;
   }
 }

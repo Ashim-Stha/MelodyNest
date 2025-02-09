@@ -9,3 +9,16 @@ mutation {
           accessToken
       }
   }
+
+{
+      profile{
+          email
+    			userId
+    
+      }
+  }
+
+  in http headers
+{
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1ZmZ5QGdtYWlsLmNvbSIsInN1YiI6MSwiaWF0IjoxNzM5MTE0Njk4LCJleHAiOjE3MzkyMDEwOTh9.CLUbDps2QW25EI5vXYLELfPvz0c9uK5VKn_MQxbMKmg"
+}
