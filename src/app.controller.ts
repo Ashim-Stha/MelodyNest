@@ -1,11 +1,10 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
-import { JwtAuthGuard } from './auth/jwt-guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGaurd } from './auth/jwt-guard';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}//
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   getHello(): string {
@@ -13,9 +12,11 @@ export class AppController {
   }
 
   @Get('profile')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth('JWT-auth')
-  getProfile(@Req() request) {
+  @UseGuards(JwtAuthGaurd)
+  getProfile(
+    @Req()
+    request,
+  ) {
     return request.user;
   }
 }

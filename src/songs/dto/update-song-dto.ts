@@ -7,14 +7,13 @@ import {
   IsString,
 } from 'class-validator';
 
-export class UpdateSongDTO {
+export class UpdateSongDto {
   @IsString()
   @IsOptional()
   readonly title;
 
-  @IsArray()
   @IsOptional()
-  // @IsString({ each: true })
+  @IsArray()
   @IsNumber({}, { each: true })
   readonly artists;
 

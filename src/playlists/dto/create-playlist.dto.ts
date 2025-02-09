@@ -1,12 +1,12 @@
 import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreatePlaylistDTO {
+export class CreatePlayListDto {
   @IsString()
   @IsNotEmpty()
   readonly name;
 
-  @IsArray()
   @IsNotEmpty()
+  @IsArray()
   @IsNumber({}, { each: true })
   readonly songs;
 

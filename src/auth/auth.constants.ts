@@ -1,3 +1,3 @@
 export const authConstants = {
-  secret: 'mysecret',
+  secret: 'HAD_12X#@',
 };
