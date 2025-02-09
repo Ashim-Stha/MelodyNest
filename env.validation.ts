@@ -22,10 +22,10 @@ class EnvironmentVariables {
   DB_HOST: string;
 
   @IsString()
-  DB_USERNAME: string;
+  USERNAME: string;
 
   @IsString()
-  DB_PASSWORD: string;
+  PASSWORD: string;
 
   @IsString()
   DB_NAME: string;
@@ -35,7 +35,7 @@ class EnvironmentVariables {
 }
 
 export function validate(config: Record<string, unknown>) {
-  // console.log('config', config);
+  // console.log('config ', config);
   const validatedConfig = plainToInstance(EnvironmentVariables, config, {
     enableImplicitConversion: true,
   });

@@ -25,70 +25,24 @@ import { SeedModule } from './seed/seed.module';
 import configuration from './config/configuration';
 import { validate } from 'env.validation';
 
-// const devConfig = { port: 3000 };
-// const proConfig = { port: 4000 };
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [
-        // '.env.production', '.env.development'
-        `${process.cwd()}/.env.${process.env.NODE_ENV}`,
-      ],
+      envFilePath: [`${process.cwd()}/.env.${process.env.NODE_ENV}`],
       isGlobal: true,
       load: [configuration],
       validate: validate,
     }),
-    TypeOrmModule.forRootAsync(
-      typeOrmAsyncConfig,
-      // {
-      // imports: [ConfigModule],
-      // useFactory: (configService: ConfigService) => ({
-      //   type: 'postgres',
-      //   host: configService.get<string>('DB_HOST'),
-      //   port: configService.get<number>('DB_PORT'),
-      //   username: configService.get<string>('DB_USERNAME'),
-      //   password: configService.get<string>('DB_PASSWORD'),
-      //   database: configService.get<string>('DB_NAME'),
-      //   entities: [Song, Artist, User, Playlist],
-      //   synchronize: true,
-      // }),
-      // inject: [ConfigService],
-      //}
-    ),
+    TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
+    SongsModule,
+    PlaylistModule,
     AuthModule,
     UserModule,
-    PlaylistModule,
-    SongsModule,
     ArtistsModule,
     SeedModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    // {
-    //   provide: DevConfigService,
-    //   useClass: DevConfigService,
-    // },
-    // {
-    //   provide: 'CONFIG',
-    //   useFactory: () => {
-    //     return process.env.NODE_ENV === 'development' ? devConfig : proConfig;
-    //   },
-    // },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}
-// export class AppModule implements NestModule {
-//   constructor(dataSource: DataSource) {
-//     console.log('dbName', dataSource.driver.database);
-//   }
-//   configure(consumer: MiddlewareConsumer) {
-//     // consumer.apply(LoggerMiddleware).forRoutes('songs'); //option 1
-//     consumer
-//       .apply(LoggerMiddleware)
-//       .forRoutes({ path: 'songs', method: RequestMethod.POST }); //option 2
-//   }
-
-//   // consumer.apply(LoggerMiddleware).forRoutes(SongsController); //option 3
-// }
