@@ -1,5 +1,39 @@
-songs {
-    id
-    title
-}
+  {
+    songs{
+        id
+        title
+    }
+  }
 
+
+  {
+      song(id:""){
+          title
+      }
+  }
+
+    mutation {
+      createSong(createSongInput: { title: "Hello" }) {
+        id
+        title
+      }
+    }
+
+    mutation{
+      updateSong(id:"51c72f86-4048-4680-b3ad-f12f9ce5eb7e", updateSongInput: { title:"Hey" }){
+        affected
+      }
+    }
+
+    mutation{
+        deleteSong(id:""){
+            affected
+        }
+    }
+
+subscription{
+  	songCreated{
+      id
+      title
+    }
+}

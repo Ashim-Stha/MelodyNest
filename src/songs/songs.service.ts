@@ -6,7 +6,7 @@ import { CreateSongDTO } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
 
 @Injectable()
-export class SongsService {
+export class SongService {
   constructor(
     @InjectRepository(Song)
     private readonly songRepo: Repository<Song>,

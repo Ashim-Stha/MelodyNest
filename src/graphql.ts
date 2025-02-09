@@ -61,6 +61,10 @@ export class Profile {
     userId: string;
 }
 
+export abstract class ISubscription {
+    abstract songCreated(): Song | Promise<Song>;
+}
+
 export class SignupResponse {
     email: string;
 }

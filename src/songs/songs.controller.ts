@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { SongsService } from './songs.service';
+import { SongService } from './songs.service';
 import { Song } from './song.entity';
 import { CreateSongDTO } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song-dto';
@@ -15,7 +15,7 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Controller('songs')
 export class SongController {
-  constructor(private songService: SongsService) {}
+  constructor(private songService: SongService) {}
   @Get()
   getSongs(): Promise<Song[]> {
     return this.songService.getSongs();
