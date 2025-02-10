@@ -57,4 +57,14 @@ describe('SongResolver', () => {
     const song = await resolver.createSong({ title: 'Dancing Feat' });
     expect(song).toEqual({ id: 'a uuid', title: 'Dancing Feat' });
   });
+
+  it('should update the song', async () => {
+    const song = await resolver.updateSong('a uuid', { title: 'Dancing Feat' });
+    expect(song.affected).toBe(1);
+  });
+
+  it('should delete the song', async () => {
+    const song = await resolver.deleteSong('a uuid');
+    expect(song.affected).toBe(1);
+  });
 });
