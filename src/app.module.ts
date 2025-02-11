@@ -13,6 +13,8 @@ import { UsersModule } from './users/users.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import responseCachePlugin from '@apollo/server-plugin-response-cache';
+import { ApolloServerPluginCacheControl } from '@apollo/server/plugin/cacheControl';
 
 @Module({
   imports: [
@@ -28,6 +30,10 @@ import { join } from 'path';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      plugins: [
+        ApolloServerPluginCacheControl({ defaultMaxAge: 5 }),
+        responseCachePlugin(),
+      ],
       typePaths: ['./**/*.graphql'],
       definitions: {
         path: join(process.cwd(), 'src/graphql.ts'),
