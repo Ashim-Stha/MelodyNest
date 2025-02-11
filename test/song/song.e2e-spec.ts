@@ -2,11 +2,12 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppModule } from '../../src/app.module';
-import { Song } from '../../src/graphql';
+import { CreateSongInput, Song } from '../../src/graphql';
 import { SongModule } from '../../src/songs/songs.module';
 import { CreateSongDTO } from '../../src/songs/dto/create-song-dto';
 import * as request from 'supertest';
 import { query } from 'express';
+import { title } from 'process';
 
 describe('SongResolver (e2e)', () => {
   let app: INestApplication;
@@ -103,5 +104,72 @@ describe('SongResolver (e2e)', () => {
       .send(queryData)
       .expect(200);
     expect(result.body).toEqual({ data: { song: newSong } });
+  });
+
+  it('(Mutation) it should create a new song', async () => {
+    const queryData = {
+      query: `mutation CreateSong($createSongInput: CreateSongInput!){
+        createSong(createSongInput: $createSongInput){
+          title
+          id
+        }
+      }`,
+      variables: {
+        createSongInput: {
+          title: 'Animals',
+        },
+      },
+    };
+    const results = await request(app.getHttpServer())
+      .post('/graphql')
+      .send(queryData)
+      .expect(200);
+
+    expect(results.body.data.createSong.title).toBe('Animals');
+  });
+
+  it('(Mutation) it should update existing song', async () => {
+    const newSong = await createSong({ title: 'Animals' });
+    const queryData = {
+      query: `mutation UpdateSong($id: ID!, $updateSongInput: UpdateSongInput!){
+            updateSong(id: $id, updateSongInput: $updateSongInput){
+                affected
+            }
+        }
+        `,
+      variables: {
+        id: newSong.id,
+        updateSongInput: {
+          title: 'Lover',
+        },
+      },
+    };
+
+    const results = await request(app.getHttpServer())
+      .post('/graphql')
+      .send(queryData)
+      .expect(200);
+    expect(results.body.data.updateSong.affected).toBe(1);
+  });
+
+  it(`(Mutation) it should delete existing song`, async () => {
+    const newSong = await createSong({ title: 'Animals' });
+    const queryData = {
+      query: `mutation DeleteSong($id: ID!){
+            deleteSong(id: $id){
+                affected
+            }
+        }`,
+      variables: {
+        id: newSong.id,
+      },
+    };
+
+    const results = await request(app.getHttpServer())
+      .post('/graphql')
+      .send(queryData)
+      .expect(200);
+
+    expect(results.body.data.deleteSong.affected).toBe(1);
   });
 });
