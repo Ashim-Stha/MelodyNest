@@ -1,234 +1,157 @@
-
 # MelodyNest
 
-MelodyNest is a music management application built with NestJS. It allows users to manage songs, artists, playlists, and user authentication with JWT and API key strategies. The application also supports two-factor authentication (2FA).
+## Overview
+
+MelodyNest is a music application that allows users to manage songs, artists, playlists, and more. This project was initially implemented using REST APIs and has now been modified to use GraphQL. GraphQL provides a more flexible and efficient way to query and manipulate data compared to traditional REST APIs.
 
 ## Features
 
-- User authentication with JWT
-- API key authentication
-- Two-factor authentication (2FA)
-- CRUD operations for songs, artists, and playlists
-- Pagination and sorting for songs
-- Relationship management between songs, artists, and playlists
-- Environment configuration and validation
+- **GraphQL API**: Provides a flexible and efficient way to query and manipulate data.
+- **Song Management**: Create, update, delete, and fetch songs.
+- **Artist Management**: Manage artist information (to be implemented).
+- **Playlist Management**: Create and manage playlists (to be implemented).
+- **User Authentication**: Secure user authentication and authorization.
+- **Subscriptions**: Real-time updates using GraphQL subscriptions.
+- **Server-Side Caching**: Efficient caching using Apollo Server plugins.
 
-## Prerequisites
+## Getting Started
 
-- Node.js
-- PostgreSQL
+### Prerequisites
 
-## Installation
+- **Node.js**: Ensure you have Node.js installed. You can download it from [nodejs.org](https://nodejs.org/).
+- **PostgreSQL**: Ensure you have PostgreSQL installed and running. You can download it from [postgresql.org](https://www.postgresql.org/).
 
-1. Clone the repository:
-   ```bash
+### Installation
+
+1. **Clone the repository**:
+   ```sh
    git clone https://github.com/yourusername/MelodyNest.git
    cd MelodyNest
    ```
 
-2. Install dependencies:
-   ```bash
+2. **Install dependencies**:
+   ```sh
    npm install
    ```
 
-3. Create a `.env` file in the root directory and add the following environment variables:
-   ```
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_USERNAME=your_db_username
-   DB_PASSWORD=your_db_password
-   DB_NAME=your_db_name
-   JWT_SECRET=your_jwt_secret
+3. **Set up the environment variables**:
+   ```sh
+   cp .env.example .env
    ```
 
-4. Run the database migrations:
-   ```bash
-   npm run typeorm migration:run
-   ```
+4. **Update the `.env` file** with your database credentials. Ensure you have the correct values for `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`, and `DB_NAME`.
 
-## Running the Application
+### Running the Application
 
-1. Start the development server:
-   ```bash
+1. **Start the PostgreSQL server**.
+
+2. **Run the application**:
+   ```sh
    npm run start:dev
    ```
 
-2. The application will be available at `http://localhost:3000`.
+3. **Access the GraphQL playground**:
+   The GraphQL playground will be available at `http://localhost:3000/graphql`. You can use this interface to test your GraphQL queries and mutations.
 
-## API Endpoints
+## GraphQL API
 
-### Authentication
+### Queries
 
-- **Signup**
-  ```http
-  POST /auth/signup
-  Content-Type: application/json
+#### Get All Songs
 
-  {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "password": "password123"
+Fetch a list of all songs.
+
+```graphql
+query {
+  songs {
+    id
+    title
   }
-  ```
+}
+```
 
-- **Login**
-  ```http
-  POST /auth/login
-  Content-Type: application/json
+#### Get Song by ID
 
-  {
-      "email": "john.doe@example.com",
-      "password": "password123"
+Fetch a specific song by its ID.
+
+```graphql
+query GetSong($id: ID!) {
+  song(id: $id) {
+    id
+    title
   }
-  ```
+}
+```
 
-- **Enable 2FA**
-  ```http
-  GET /auth/enable-2fa
-  Authorization: Bearer <JWT_TOKEN>
-  ```
+### Mutations
 
-- **Validate 2FA Token**
-  ```http
-  POST /auth/validate-2fa
-  Authorization: Bearer <JWT_TOKEN>
-  Content-Type: application/json
+#### Create Song
 
-  {
-      "token": "authenticator_token"
+Create a new song.
+
+```graphql
+mutation CreateSong($createSongInput: CreateSongInput!) {
+  createSong(createSongInput: $createSongInput) {
+    id
+    title
   }
-  ```
+}
+```
 
-- **Disable 2FA**
-  ```http
-  GET /auth/disable-2fa
-  Authorization: Bearer <JWT_TOKEN>
-  ```
+#### Update Song
 
-- **Profile**
-  ```http
-  GET /auth/profile
-  Authorization: Bearer <JWT_TOKEN>
-  ```
+Update an existing song.
 
-- **Profile with API Key**
-  ```http
-  GET /auth/profile
-  Authorization: Bearer <API_KEY>
-  ```
-
-### Songs
-
-- **Create Song**
-  ```http
-  POST /songs
-  Authorization: Bearer <JWT_TOKEN>
-  Content-Type: application/json
-
-  {
-      "title": "Song Title",
-      "artists": [1, 2],
-      "releasedDate": "2023-05-29",
-      "duration": "02:34",
-      "lyrics": "Song lyrics"
+```graphql
+mutation UpdateSong($id: ID!, $updateSongInput: UpdateSongInput!) {
+  updateSong(id: $id, updateSongInput: $updateSongInput) {
+    affected
   }
-  ```
+}
+```
 
-- **Get All Songs**
-  ```http
-  GET /songs/?page=1&limit=10
-  ```
+#### Delete Song
 
-- **Get Song by ID**
-  ```http
-  GET /songs/1
-  ```
+Delete an existing song.
 
-- **Update Song**
-  ```http
-  PUT /songs/1
-  Content-Type: application/json
-
-  {
-      "title": "Updated Song Title",
-      "artists": [1, 2],
-      "releasedDate": "2023-05-29",
-      "duration": "02:34",
-      "lyrics": "Updated song lyrics"
+```graphql
+mutation DeleteSong($id: ID!) {
+  deleteSong(id: $id) {
+    affected
   }
-  ```
+}
+```
 
-- **Delete Song**
-  ```http
-  DELETE /songs/1
-  ```
+## Server-Side Caching
 
-### Playlists
+The application uses Apollo Server plugins for efficient server-side caching. The following plugins are used:
 
-- **Create Playlist**
-  ```http
-  POST /playlists
-  Content-Type: application/json
+- **ApolloServerPluginCacheControl**: Provides fine-grained control over caching behavior.
+- **responseCachePlugin**: Caches responses to improve performance.
 
-  {
-      "name": "My Playlist",
-      "songs": [1],
-      "user": 1
-  }
-  ```
+These plugins are configured in the `GraphQLModule` in `src/app.module.ts`.
 
-## Database Schema
+## Running Tests
 
-### User
+### Unit Testing with Jest
 
-- `id`: Primary key
-- `firstName`: String
-- `lastName`: String
-- `email`: String
-- `password`: String
-- `apiKey`: String
+Unit tests are written using Jest to ensure individual components work as expected. Jest is a delightful JavaScript testing framework with a focus on simplicity.
 
-### Artist
+To run unit tests, use the following command:
 
-- `id`: Primary key
-- `user`: One-to-one relationship with `User`
-- `songs`: Many-to-many relationship with `Song`
+```sh
+npm run test
+```
 
-### Song
+### End-to-End Testing
 
-- `id`: Primary key
-- `title`: String
-- `releasedDate`: Date
-- `duration`: Time
-- `lyrics`: Text
-- `artists`: Many-to-many relationship with `Artist`
-- `playList`: Many-to-one relationship with `Playlist`
+End-to-end (e2e) tests are written to ensure the entire application works as expected. These tests simulate real user interactions and verify that the system behaves correctly from start to finish.
 
-### Playlist
+To run end-to-end tests, use the following command:
 
-- `id`: Primary key
-- `name`: String
-- `user`: Many-to-one relationship with `User`
-- `songs`: One-to-many relationship with `Song`
-
-## Middleware
-
-- **LoggerMiddleware**: Logs incoming requests.
-
-## Providers
-
-- **DevConfigService**: Provides development configuration settings.
-
-## Guards
-
-- **JwtAuthGuard**: Protects routes using JWT authentication.
-- **ArtistJwtGuard**: Protects routes for artist-specific actions.
-
-## Strategies
-
-- **JwtStrategy**: Validates JWT tokens.
-- **ApiKeyStrategy**: Validates API keys.
+```sh
+npm run test:e2e
+```
 
 ## License
 

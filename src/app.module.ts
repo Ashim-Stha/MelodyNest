@@ -24,7 +24,7 @@ import { ApolloServerPluginCacheControl } from '@apollo/server/plugin/cacheContr
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '#Awseem23845',
+      password: 'root',
       entities: [Song, User],
       synchronize: true,
     }),
