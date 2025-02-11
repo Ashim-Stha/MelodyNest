@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateUserDTO } from 'src/users/dto/create-user.dto';
+import { CreateUserDTO } from '../users/dto/create-user.dto';
 import { User } from 'src/users/user.entity';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { LoginDTO } from './dto/login.dto';
 

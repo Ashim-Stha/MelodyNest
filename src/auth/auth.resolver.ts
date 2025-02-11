@@ -1,13 +1,13 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import {
   LoginInput,
   LoginResponse,
   Profile,
   SignupInput,
   SignupResponse,
-} from 'src/graphql';
+} from '../graphql';
 import { resolve } from 'path';
 import { UseGuards } from '@nestjs/common';
 import { GraphQLAuthGuard } from './gql-auth-guard';
