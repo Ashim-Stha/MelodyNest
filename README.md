@@ -38,7 +38,8 @@ MelodyNest is a music management application built with NestJS. It allows users 
    DB_USERNAME=your_db_username
    DB_PASSWORD=your_db_password
    DB_NAME=your_db_name
-   JWT_SECRET=your_jwt_secret
+   SECRET=your_jwt_secret
+   PORT=3000
    ```
 
 4. Run the database migrations:
